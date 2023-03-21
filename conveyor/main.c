@@ -7,15 +7,17 @@
 #include <sys/types.h>
 #include <errno.h>
 
+enum{
+    ERROR,
+    METPALKA,
+    DIDNTMETPALKA,
+    ENDINPUT,
+    Syntax_ERROR,
+    Pipe_ERROR,
+    End_of_Work,
+    FIRST
+};
 #define N 10
-#define ERROR -1
-#define METPALKA 0
-#define DIDNTMETPALKA 1
-#define ENDINPUT 2
-#define Syntax_ERROR 3
-#define Pipe_ERROR 4
-#define End_of_Work 5
-#define FIRST 6
 
 typedef struct {
     char* input;
@@ -344,53 +346,6 @@ void Clean( data* files ){
     free( files->argv );
 
 }
-
-/*void smart_input(){
-
-    perenapravlenie files;
-    int status, i, tmp;
-    char** argv;
-
-
-    printf( "NEW STAGE\n");
-    while(1){
-
-        argv = new_argv(&status);
-        files.status = status;
-        fill_struct( &files, &argv );
-        if ( status == ERROR ) {
-            Clean( &files, 1, 1 );
-        }
-        if ( (strcmp( (files.argv)[0], "exit" ) == 0) && (tmp == ENDINPUT) ) {
-            printf( "Shell is closing, bye\n" );
-            Clean( &files, 0, 1 );
-        }
-        if ( tmp == ENDINPUT ) printf( "NEW STAGE\n");
-        tmp = status;
-
-        //
-        i = 0;
-        while ( (files.argv)[i] != NULL ){
-            printf( "%s\n", (files.argv)[i] );
-            i++;
-        }
-
-        if ( strcmp( (files.argv)[0], "exit" ) == 0 ) return;
-        if (files.input != NULL) printf("input %s\n", files.input);
-        if (files.output != NULL) printf("output %s\n", files.output);
-        if (files.outputcur != NULL) printf("outputcur %s\n", files.outputcur);
-        if (files.error != NULL) printf("error %s\n", files.error);
-        printf( "%d\n", files.status );
-        //
-
-        Clean( &files, 0, 0 );
-
-    }
-
-
-    return;
-
-}*/
 
 void clossing_all( int** ch ){
     close(ch[0][0]);

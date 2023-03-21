@@ -7,16 +7,21 @@
 #include <sys/types.h>
 #include <errno.h>
 
+
+
+enum{
+    ERROR,
+    METPALKA,
+    DIDNTMETPALKA,
+    ENDINPUT,
+    Syntax_ERROR,
+    Pipe_ERROR,
+    End_of_Work,
+    FIRST,
+    START
+};
+
 #define N 10
-#define ERROR -1
-#define METPALKA 0
-#define DIDNTMETPALKA 1
-#define ENDINPUT 2
-#define Syntax_ERROR 3
-#define Pipe_ERROR 4
-#define End_of_Work 5
-#define FIRST 6
-#define START 7
 
 typedef struct {
     char* input;
@@ -476,17 +481,6 @@ void smart_konveer(){
         if ( pid > 0 ){//father
             close_one(ch[i]);
             wait(&statusson);
-            /*if (WEXITSTATUS(statusson)){
-                if (end != '\n') {
-                    if( scanf( "%c", &c ) != EOF ){
-                        while( c != '\n' ) if( scanf( "%c", &c ) == EOF ) ending( ch, &files, 0 );
-                    }
-                    else ending( ch, &files, 0 );
-                    status = START;
-                    statusson = FIRST;
-                }
-            }*/
-            //if ( files.status == ENDINPUT ) ending( ch, &files, 0 );//dz6
             flagson = 0;
             if (files.status == ENDINPUT) {
                 flagson = FIRST;
